@@ -4,16 +4,16 @@ namespace ShppingCartv2
 {
     public class Cart
     {
-        public List<CartItem> _items = new List<CartItem>();
+        private readonly List<CartItem> _items = new List<CartItem>();
         double billAmount = 0.0;
         CartDiscount _cartDiscount = new CartDiscount();
 
         public void AddItemToCart(CartItem item)
         {
-            if (_items.Exists(x => x.product.productName.Contains(item.product.productName)))
+            if (_items.Exists(x => x.Product.ProductName.Contains(item.Product.ProductName)))
             {
-                int index = _items.FindIndex(x => x.product.productName.Contains(item.product.productName));
-                _items[index].quantity += item.quantity;
+                int index = _items.FindIndex(x => x.Product.ProductName.Contains(item.Product.ProductName));
+                _items[index].Quantity += item.Quantity;
             }               
                                 
             else
@@ -22,9 +22,9 @@ namespace ShppingCartv2
 
         public void RemoveItemFromCart(CartItem item)
         {
-            int index = _items.FindIndex(x => x.product.productName.Contains(item.product.productName));
-            if (item.quantity < _items[index].quantity)
-                _items[index].quantity -= item.quantity;
+            int index = _items.FindIndex(x => x.Product.ProductName.Contains(item.Product.ProductName));
+            if (item.Quantity < _items[index].Quantity)
+                _items[index].Quantity -= item.Quantity;
             else
                 _items.Remove(item);
         }
@@ -37,7 +37,7 @@ namespace ShppingCartv2
         public double CalculateCartBill()
         {
             foreach (var item in _items)
-                billAmount += (item.GetPrice() * item.quantity) * (1 - item.ItemDiscount());
+                billAmount += (item.GetPrice() * item.Quantity) * (1 - item.ItemDiscount());
             billAmount = billAmount * (1 - _cartDiscount.GetValue());
             return billAmount;
         }
@@ -49,8 +49,8 @@ namespace ShppingCartv2
 
         public int GetItemQuantity(string productName)
         {
-            int index = _items.FindIndex(x => x.product.productName.Contains(productName));
-            return _items[index].quantity;
+            int index = _items.FindIndex(x => x.Product.ProductName.Contains(productName));
+            return _items[index].Quantity;
         }
 
         

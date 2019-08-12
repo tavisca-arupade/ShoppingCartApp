@@ -4,28 +4,28 @@ namespace ShppingCartv2
 {
     public class CartItem
     {
-        public Product product;
-        public int quantity;
+        public Product Product { get; private set; }
+        public int Quantity { get;  set; }
 
         public CartItem(string productName, double price, int quantity, Category category)
         {
-            product = new Product(productName, price, category);
-            this.quantity = quantity;
+            Product = new Product(productName, price, category);
+            this.Quantity = quantity;
         }
 
         public double ItemDiscount()
         {
-            return product.CategoryDiscount(product.category);
+            return Product.CategoryDiscount(Product.Category);
         }
 
         public void UpdateQuantity(int quantity)
         {
-            this.quantity += quantity;
+            this.Quantity += quantity;
         }
 
         public double GetPrice()
         {
-            return product.price;
+            return Product.Price;
         }
 
     }
